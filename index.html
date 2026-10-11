@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baby Shower de Gabriela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600&display=swap">
+<style>
+:root{
+  --accent:#B8456A;      /* rosa principal */
+  --accent-dark:#8E2F50;
+  --name:#A33A5E;
+  --brown:#5A3E36;
+  --brown-soft:#6B4C44;
+  --page:#FFFBFC;
+  --cover:#F9DCE4;
+  --line:#F1C6D2;
+}
+*{box-sizing:border-box}
+html{margin:0;background-color:#FFF6F8}
+body{
+  margin:0;min-height:100vh;
+  font-family:'Quicksand',sans-serif;color:var(--brown);
+  background-color:#FFF6F8;
+  background-image:
+    radial-gradient(ellipse at 15% 20%,#FCE4EA 0%,rgba(252,228,234,0) 55%),
+    radial-gradient(ellipse at 85% 85%,#F8D3DD 0%,rgba(248,211,221,0) 50%);
+  background-repeat:no-repeat;background-size:100% 100%;background-attachment:fixed;
+}
+main{width:100%;min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:48px 0}
+
+/* ---------- Mariposas de fondo ---------- */
+.bf{position:absolute;fill:#EFA9BB}
+.flutter{animation:flutter 5s ease-in-out infinite}
+.flutter.f2{animation-delay:-1.6s;animation-duration:6s}
+.flutter.f3{animation-delay:-3.1s;animation-duration:7s}
+@keyframes flutter{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
+
+/* ---------- Libro ---------- */
+.stage{position:relative;width:840px;height:600px;perspective:2400px;flex-shrink:0}
+.book{position:relative;width:840px;height:600px;transform-style:preserve-3d;transform:translateX(-210px);transition:transform 1.3s cubic-bezier(.65,.05,.3,1)}
+.book.is-open{transform:translateX(0)}
+.shadow{position:absolute;left:30px;right:30px;bottom:-22px;height:30px;border-radius:50%;background:rgba(150,70,95,.18);filter:blur(14px)}
+
+/* Hojas que giran: la tapa y una hoja interior */
+.cover,.leaf{position:absolute;left:420px;top:0;width:420px;height:600px;transform-origin:left center;transform-style:preserve-3d;transition:transform 1.5s cubic-bezier(.65,.05,.3,1)}
+.cover{transform:translateZ(3px) rotateY(0deg)}
+.book.is-open .cover{transform:translateZ(1px) rotateY(-180deg)}
+.leaf{transform:translateZ(2px) rotateY(0deg)}
+.book.s2 .leaf{transform:translateZ(2px) rotateY(-180deg)}
+
+.face{position:absolute;top:0;left:0;width:420px;height:600px;backface-visibility:hidden;-webkit-backface-visibility:hidden;pointer-events:none;overflow:hidden}
+.face.front{transform:translateZ(1px)}
+.face.back{transform:rotateY(180deg) translateZ(1px)}
+/* Solo la cara visible recibe clics */
+.book:not(.is-open) .cover .front{pointer-events:auto}
+.book.is-open:not(.s2) .cover .back,
+.book.is-open:not(.s2) .leaf .front{pointer-events:auto}
+.book.s2 .leaf .back{pointer-events:auto}
+
+.page-left{border-radius:10px 0 0 10px;background:var(--page);box-shadow:inset -18px 0 24px -14px rgba(150,70,95,.25)}
+.page-right{border-radius:0 10px 10px 0;background:var(--page);box-shadow:inset 18px 0 24px -14px rgba(150,70,95,.25)}
+.frame{position:absolute;inset:14px;border:1px solid var(--line);border-radius:6px;pointer-events:none;z-index:2}
+
+/* ---------- Portada ---------- */
+.front-cover{border-radius:4px 12px 12px 4px;
+  background:
+    radial-gradient(ellipse at 30% 25%,#FDEAF0 0%,rgba(253,234,240,0) 60%),
+    radial-gradient(ellipse at 80% 90%,#F4C3D0 0%,rgba(244,195,208,0) 55%),
+    var(--cover);
+  box-shadow:inset 10px 0 18px -10px rgba(120,50,75,.35),0 10px 30px rgba(150,70,95,.18);
+  display:flex;flex-direction:column;align-items:center;padding:40px 40px 44px;text-align:center}
+.front-cover .frame{inset:16px;border:1.5px solid rgba(255,255,255,.85);border-radius:8px}
+.front-cover h1{margin:14px 0 0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:50px;line-height:1;color:var(--brown)}
+.subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--brown-soft);margin-top:6px}
+.divider{display:flex;align-items:center;gap:10px;margin-top:26px;width:220px}
+.divider span{flex:1;height:1px;background:var(--accent);opacity:.6}
+.divider svg{width:22px;height:18px;fill:var(--accent)}
+.people{margin-top:22px;display:flex;flex-direction:column;gap:14px;width:100%}
+.label{font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--brown-soft)}
+.name{font-family:'Great Vibes',cursive;font-size:40px;line-height:1.2;color:var(--name)}
+.name.sm{font-size:34px}
+.open-btn{margin-top:auto;min-height:48px;padding:0 30px;border:none;border-radius:999px;background:var(--accent);color:#fff;font-family:'Quicksand',sans-serif;font-size:15px;font-weight:600;letter-spacing:.5px;cursor:pointer;box-shadow:0 6px 16px rgba(160,60,95,.3);animation:pulse 2.4s ease-in-out infinite}
+.open-btn:hover{filter:brightness(1.08)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+
+/* ---------- Botones de navegación ---------- */
+.icon{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nav-left{position:absolute;left:28px;bottom:24px;z-index:3;min-height:44px;padding:0 14px;border:none;background:transparent;color:#8E5A68;font-family:'Quicksand',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.nav-right{position:absolute;right:28px;bottom:24px;z-index:3;min-height:44px;padding:0 18px;border:none;border-radius:999px;background:var(--accent);color:#fff;font-family:'Quicksand',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(160,60,95,.25)}
+.nav-right.mobile-only{display:none}
+.back-btn{position:absolute;top:12px;left:12px;z-index:3;width:44px;height:44px;align-items:center;justify-content:center;border:none;background:transparent;color:#8E5A68;cursor:pointer}
+.back-btn .icon{width:20px;height:20px}
+
+/* ---------- Página: conejita ---------- */
+.bunny-page{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center}
+.blob{position:absolute;left:50%;top:44%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;
+  background:radial-gradient(circle at 45% 40%,#FCE0E8 0%,#F9D3DE 45%,rgba(249,211,222,0) 70%)}
+.bunny-big{position:relative;width:220px;height:264px;animation:breathe 4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.baby-name{position:relative;font-family:'Great Vibes',cursive;font-size:56px;line-height:1.1;color:var(--accent);margin-top:6px}
+.baby-sub{position:relative;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--brown-soft)}
+.deco{position:absolute;fill:#EFA9BB}
+
+/* ---------- Página: poema ---------- */
+.poem-page{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 46px 70px;text-align:center}
+.poem-title{font-family:'Great Vibes',cursive;font-size:40px;line-height:1.2;color:var(--accent);margin-top:10px}
+.poem{margin-top:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;line-height:1.55;color:var(--brown);white-space:pre-line}
+.short-line{margin-top:22px;width:60px;height:1px;background:var(--accent);opacity:.6}
+
+/* ---------- Página: conejita volando ---------- */
+.sky-page{background:linear-gradient(180deg,#FBE3EA 0%,#FDEFF3 45%,#FFFBFC 100%);display:flex;flex-direction:column;align-items:center;padding:46px 36px;text-align:center}
+.sky-title{position:relative;z-index:1;font-family:'Great Vibes',cursive;font-size:44px;line-height:1.15;color:var(--accent)}
+.sky-sub{position:relative;z-index:1;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--brown-soft);margin-top:4px;max-width:300px}
+.mini-cloud{position:absolute;fill:#FFFFFF;opacity:.95;animation:drift 18s linear infinite}
+.mini-cloud.c2{animation-duration:24s;animation-delay:-9s}
+.mini-cloud.c3{animation-duration:21s;animation-delay:-15s}
+@keyframes drift{from{transform:translateX(-140px)}to{transform:translateX(560px)}}
+.flyer{position:absolute;left:85px;top:236px;width:250px;height:252px;animation:fly 9s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(160,70,100,.18))}
+@keyframes fly{
+  0%,100%{transform:translate(-55px,8px) rotate(-5deg)}
+  25%{transform:translate(0,-16px) rotate(1deg)}
+  50%{transform:translate(55px,6px) rotate(5deg)}
+  75%{transform:translate(0,-12px) rotate(-1deg)}
+}
+.wing-l{transform-box:fill-box;transform-origin:100% 60%;animation:flapL .55s ease-in-out infinite alternate}
+.wing-r{transform-box:fill-box;transform-origin:0% 60%;animation:flapR .55s ease-in-out infinite alternate}
+@keyframes flapL{from{transform:rotate(10deg)}to{transform:rotate(-20deg)}}
+@keyframes flapR{from{transform:rotate(-10deg)}to{transform:rotate(20deg)}}
+.twinkle{position:absolute;fill:#F2B6C6;animation:twinkle 2.6s ease-in-out infinite}
+.twinkle.t2{animation-delay:-.9s}.twinkle.t3{animation-delay:-1.7s}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.1)}}
+
+/* ---------- Página: invitación ---------- */
+.invite{position:absolute;left:420px;top:0;width:420px;height:600px;padding:34px 36px 30px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:inset 18px 0 24px -14px rgba(150,70,95,.25),0 2px 0 #F1D4DB,0 4px 0 #F7E3E8}
+.inv-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px;line-height:1;color:var(--brown);letter-spacing:.5px}
+.baby{font-family:'Great Vibes',cursive;font-size:46px;line-height:1.15;color:var(--accent);margin-top:6px}
+.intro{margin:10px 0 0;font-size:13.5px;line-height:1.55;color:var(--brown-soft);max-width:300px}
+.when{margin-top:20px;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;gap:8px}
+.when .boxed{border-top:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);padding:9px 0;font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500}
+.when .day{display:flex;flex-direction:column;align-items:center;font-family:'Cormorant Garamond',serif}
+.when .num{font-size:58px;line-height:.95;font-weight:500;color:#4A322C}
+.when .month{font-size:20px}
+.where{margin-top:22px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:15px;line-height:1.6}
+.where svg{width:22px;height:22px;fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.actions{margin-top:auto;width:100%;display:flex;gap:12px;justify-content:center}
+.pill{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--accent);border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;color:var(--accent);transition:background .2s}
+.pill:hover{background:#FBE7EC;color:var(--accent-dark)}
+
+/* Aparición del contenido de la invitación */
+.reveal{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease}
+.book.s2 .reveal{opacity:1;transform:none;transition-delay:1.1s}
+.book.s2 .reveal.d2{transition-delay:1.3s}
+.book.s2 .reveal.d3{transition-delay:1.5s}
+.book.s2 .reveal.d4{transition-delay:1.7s}
+
+/* ---------- Celular: una página a la vez ---------- */
+.mobile-only{display:none}
+@media (max-width:899px){
+  .book.is-open{transform:translateX(210px)}
+  .book.is-open.show-right{transform:translateX(-210px)}
+  .mobile-only,.nav-right.mobile-only{display:flex}
+}
+@media (max-width:479px){.stage{zoom:.86}}
+@media (max-width:400px){.stage{zoom:.8}}
+@media (max-width:350px){.stage{zoom:.72}}
+/* ---------- Ventana: ¿quién te envió la invitación? ---------- */
+button.pill{background:transparent;font-family:inherit;cursor:pointer}
+.modal-backdrop{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(90,40,55,.38);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:fadeIn .25s ease}
+.modal-backdrop[hidden]{display:none}
+.modal{position:relative;width:100%;max-width:420px;background:#FFFBFC;border-radius:22px;padding:30px 22px 24px;text-align:center;box-shadow:0 20px 50px rgba(120,40,70,.3);animation:popIn .35s cubic-bezier(.2,.8,.3,1.2)}
+.modal h2{margin:6px 0 0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;line-height:1.15;color:#5A3E36}
+.modal-sub{margin:6px 0 0;font-size:13.5px;color:#6B4C44}
+.who{margin-top:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.who-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:16px 8px 12px;border-radius:18px;border:2px solid;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.who-btn:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+.who-btn svg{width:88px;height:106px}
+.who-btn span{font-family:'Great Vibes',cursive;font-size:34px;line-height:1.1}
+.who-btn.boy{border-color:#9CC0E4;background:#F1F7FD;color:#2F5F8F}
+.who-btn.boy:hover{color:#234A70}
+.who-btn.girl{border-color:#F0B3C4;background:#FDF1F4;color:#A33A5E}
+.who-btn.girl:hover{color:#8E2F50}
+.modal-x{position:absolute;top:8px;right:8px;width:44px;height:44px;border:none;background:transparent;color:#8E5A68;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.modal-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.modal-backdrop.welcome{z-index:60;background:rgba(90,40,55,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.welcome .modal{max-width:380px;padding:26px 24px 24px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.field{display:block;width:100%;margin-top:18px;min-height:50px;padding:0 18px;border:1.5px solid #E9B9C7;border-radius:14px;background:#FFFFFF;font-family:'Quicksand',sans-serif;font-size:17px;color:#5A3E36;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
+.field::placeholder{color:#B79AA2}
+.field:focus{border-color:#B8456A;box-shadow:0 0 0 4px rgba(184,69,106,.15)}
+.field.invalid{border-color:#B3261E;animation:shake .4s}
+.field-error{margin:8px 0 0;font-size:13px;color:#B3261E}
+.field-error[hidden]{display:none}
+.primary-btn{display:block;width:100%;margin-top:16px;min-height:50px;border:none;border-radius:999px;background:var(--accent);color:#fff;font-family:'Quicksand',sans-serif;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(160,60,95,.3)}
+.primary-btn:hover{filter:brightness(1.08)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .book,.cover,.leaf,.reveal{transition:none}
+  .open-btn,.flutter,.bunny-big,.flyer,.wing-l,.wing-r,.mini-cloud,.twinkle{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Dibujos reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="butterfly" viewBox="0 0 40 32">
+    <path d="M20 16C14 2 2 2 4 12C5 18 12 18 20 16Z"/>
+    <path d="M20 16C26 2 38 2 36 12C35 18 28 18 20 16Z"/>
+    <path d="M20 16C14 20 8 28 13 30C17 31 19 24 20 16Z"/>
+    <path d="M20 16C26 20 32 28 27 30C23 31 21 24 20 16Z"/>
+  </symbol>
+  <symbol id="sparkle" viewBox="-7 -7 14 14">
+    <path d="M0 -6.5L1.6 -1.6L6.5 0L1.6 1.6L0 6.5L-1.6 1.6L-6.5 0L-1.6 -1.6Z"/>
+  </symbol>
+  <symbol id="cloud" viewBox="0 0 120 50">
+    <path d="M18 46C6 46 2 36 10 30C8 18 24 12 32 20C36 6 58 4 64 18C72 10 90 14 88 28C100 26 110 38 100 46Z"/>
+  </symbol>
+  <!-- Conejita con vestido -->
+  <symbol id="bunny" viewBox="0 0 200 240">
+    <g stroke="#E6CFC6" stroke-width="2">
+      <ellipse cx="76" cy="52" rx="17" ry="50" transform="rotate(-14 76 52)" fill="#F6ECE6"/>
+      <ellipse cx="124" cy="52" rx="17" ry="50" transform="rotate(14 124 52)" fill="#F6ECE6"/>
+    </g>
+    <ellipse cx="77" cy="58" rx="8" ry="34" transform="rotate(-14 77 58)" fill="#F7C6D2"/>
+    <ellipse cx="123" cy="58" rx="8" ry="34" transform="rotate(14 123 58)" fill="#F7C6D2"/>
+    <ellipse cx="100" cy="182" rx="46" ry="44" fill="#F6ECE6" stroke="#E6CFC6" stroke-width="2"/>
+    <path d="M60 168Q100 150 140 168L156 212Q146 222 135 213Q125 224 114 213Q100 226 86 213Q75 224 65 213Q54 222 44 212Z" fill="#F4B6C6" stroke="#E79AB0" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M66 166Q100 152 134 166" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+    <g fill="#FFFFFF" opacity=".75"><circle cx="82" cy="188" r="2.4"/><circle cx="100" cy="182" r="2.4"/><circle cx="118" cy="188" r="2.4"/><circle cx="72" cy="203" r="2.4"/><circle cx="92" cy="200" r="2.4"/><circle cx="110" cy="200" r="2.4"/><circle cx="128" cy="203" r="2.4"/></g>
+    <g fill="#F6ECE6" stroke="#E6CFC6" stroke-width="2">
+      <ellipse cx="74" cy="226" rx="18" ry="10"/><ellipse cx="126" cy="226" rx="18" ry="10"/>
+      <ellipse cx="78" cy="172" rx="11" ry="9"/><ellipse cx="122" cy="172" rx="11" ry="9"/>
+    </g>
+    <ellipse cx="100" cy="112" rx="54" ry="46" fill="#F6ECE6" stroke="#E6CFC6" stroke-width="2"/>
+    <ellipse cx="80" cy="112" rx="6.5" ry="8" fill="#4A322C"/><ellipse cx="120" cy="112" rx="6.5" ry="8" fill="#4A322C"/>
+    <circle cx="82.2" cy="108.8" r="2.3" fill="#FFFFFF"/><circle cx="122.2" cy="108.8" r="2.3" fill="#FFFFFF"/>
+    <ellipse cx="67" cy="128" rx="10" ry="6" fill="#F5AFC0" opacity=".65"/><ellipse cx="133" cy="128" rx="10" ry="6" fill="#F5AFC0" opacity=".65"/>
+    <path d="M95 121Q100 118 105 121Q100 128 95 121Z" fill="#E28AA2"/>
+    <path d="M100 125Q100 131 94 131M100 125Q100 131 106 131" fill="none" stroke="#B9707F" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M68 72C56 60 46 70 50 78C54 86 64 80 68 72Z" fill="#E58FA6"/>
+    <path d="M68 72C80 60 90 70 86 78C82 86 72 80 68 72Z" fill="#E08AA2"/>
+    <circle cx="68" cy="72" r="5" fill="#C9587A"/>
+  </symbol>
+<symbol id="bunny-boy" viewBox="0 0 200 240">
+  <g stroke="#B5CFE8" stroke-width="2" fill="#DCEBF8">
+    <ellipse cx="76" cy="52" rx="17" ry="50" transform="rotate(-14 76 52)"/>
+    <ellipse cx="124" cy="52" rx="17" ry="50" transform="rotate(14 124 52)"/>
+  </g>
+  <ellipse cx="77" cy="58" rx="8" ry="34" transform="rotate(-14 77 58)" fill="#A9C9EA"/>
+  <ellipse cx="123" cy="58" rx="8" ry="34" transform="rotate(14 123 58)" fill="#A9C9EA"/>
+  <ellipse cx="100" cy="182" rx="46" ry="44" fill="#DCEBF8" stroke="#B5CFE8" stroke-width="2"/>
+  <path d="M58 170Q100 156 142 170L148 212Q100 230 52 212Z" fill="#7FA9D6" stroke="#6A96C6" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M74 166L80 196M126 166L120 196" stroke="#5E8CC0" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="80" cy="196" r="4" fill="#F6E7B0"/><circle cx="120" cy="196" r="4" fill="#F6E7B0"/>
+  <g fill="#DCEBF8" stroke="#B5CFE8" stroke-width="2">
+    <ellipse cx="74" cy="226" rx="18" ry="10"/><ellipse cx="126" cy="226" rx="18" ry="10"/>
+    <ellipse cx="74" cy="176" rx="11" ry="9"/><ellipse cx="126" cy="176" rx="11" ry="9"/>
+  </g>
+  <ellipse cx="100" cy="112" rx="54" ry="46" fill="#DCEBF8" stroke="#B5CFE8" stroke-width="2"/>
+  <ellipse cx="80" cy="110" rx="6.5" ry="8" fill="#3A2C28"/><ellipse cx="120" cy="110" rx="6.5" ry="8" fill="#3A2C28"/>
+  <circle cx="82.2" cy="106.8" r="2.3" fill="#FFFFFF"/><circle cx="122.2" cy="106.8" r="2.3" fill="#FFFFFF"/>
+  <ellipse cx="66" cy="126" rx="9" ry="5.5" fill="#F5C0CC" opacity=".55"/><ellipse cx="134" cy="126" rx="9" ry="5.5" fill="#F5C0CC" opacity=".55"/>
+  <path d="M96 118Q100 115 104 118Q100 124 96 118Z" fill="#E28AA2"/>
+  <path d="M100 126C96 122 88 122 84 127C83 129 86 130 88 128C92 126 96 127 100 129C104 127 108 126 112 128C114 130 117 129 116 127C112 122 104 122 100 126Z" fill="#6B4C44"/>
+  <path d="M95 136Q100 140 105 136" fill="none" stroke="#8A6A72" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M100 162L85 154L85 170Z M100 162L115 154L115 170Z" fill="#4F7FB8" stroke-linejoin="round"/>
+  <circle cx="100" cy="162" r="4.5" fill="#3E6CA3"/>
+</symbol>
+</svg>
+
+<main>
+  <svg class="bf flutter" aria-hidden="true" viewBox="0 0 40 32" style="left:6%;top:10%;width:46px;height:37px;opacity:.8"><use href="#butterfly"/></svg>
+  <svg class="bf flutter f2" aria-hidden="true" viewBox="0 0 40 32" style="left:10%;top:78%;width:34px;height:27px;fill:#F3BFCC;opacity:.9"><use href="#butterfly"/></svg>
+  <svg class="bf flutter f3" aria-hidden="true" viewBox="0 0 40 32" style="right:7%;top:8%;width:40px;height:32px;fill:#E995AA;opacity:.7"><use href="#butterfly"/></svg>
+  <svg class="bf flutter" aria-hidden="true" viewBox="0 0 40 32" style="right:6%;top:82%;width:30px;height:24px;fill:#F3BFCC;opacity:.9"><use href="#butterfly"/></svg>
+
+  <div class="stage">
+    <div class="book" id="book">
+      <div class="shadow" aria-hidden="true"></div>
+
+      <!-- ===== PÁGINA 4 (derecha, al final): invitación ===== -->
+      <section class="invite page-right" aria-label="Invitación">
+        <div class="frame"></div>
+        <button class="back-btn mobile-only" type="button" aria-label="Página anterior" data-action="toL">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <div class="reveal">
+          <div class="inv-title">Baby Shower</div>
+          <div class="baby">Gabriela</div>
+        </div>
+
+        <p class="intro reveal d2">¡La dulce espera está por terminar! Acompáñanos a celebrar con mucho amor y alegría.</p>
+
+        <div class="when reveal d2">
+          <div class="boxed">Sábado</div>
+          <div class="day"><span class="num">14</span><span class="month">noviembre</span></div>
+          <div class="boxed">3:00 p.m.</div>
+        </div>
+
+        <div class="where reveal d3">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <div>Carrera 8va B # 18 B-37<br>Tangarife 2<br>La Virginia, Risaralda</div>
+        </div>
+
+        <div class="actions reveal d4">
+          <button class="pill" type="button" data-action="rsvp">Confirmar asistencia</button>
+          <!-- Google Maps: cambia la dirección en "query=" si cambia el lugar -->
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&amp;query=Carrera%208B%20%23%2018B-37%2C%20Tangarife%202%2C%20La%20Virginia%2C%20Risaralda%2C%20Colombia" target="_blank" rel="noopener">Ver ubicación</a>
+        </div>
+      </section>
+
+      <!-- ===== HOJA INTERIOR: frente = poema, reverso = conejita volando ===== -->
+      <div class="leaf">
+        <!-- PÁGINA 2 (derecha): poema -->
+        <section class="face front page-right poem-page" aria-label="Poema">
+          <div class="frame"></div>
+          <button class="back-btn mobile-only" type="button" aria-label="Página anterior" data-action="toL">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <svg aria-hidden="true" viewBox="0 0 40 32" style="width:34px;height:27px;fill:#EFA9BB"><use href="#butterfly"/></svg>
+          <div class="poem-title">Dulce espera</div>
+          <div class="poem">Llegas como llega la primavera,
+en silencio, con flores en las manos,
+y el mundo, que ya era bonito,
+se vuelve más tierno y más cercano.
+
+Te esperamos con el alma abierta
+y abrazos tejidos de ilusión;
+pequeña Gabriela, ya eres nuestra:
+vives desde hoy en nuestro corazón.</div>
+          <div class="short-line"></div>
+          <button class="nav-right" type="button" data-action="turn">
+            Pasar página
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </section>
+
+        <!-- PÁGINA 3 (izquierda): conejita con alas volando en su nube -->
+        <section class="face back page-left sky-page" aria-label="Gabriela viene en camino">
+          <div class="frame"></div>
+          <svg class="mini-cloud" aria-hidden="true" viewBox="0 0 120 50" style="left:0;top:150px;width:90px;height:38px"><use href="#cloud"/></svg>
+          <svg class="mini-cloud c2" aria-hidden="true" viewBox="0 0 120 50" style="left:0;top:330px;width:70px;height:29px"><use href="#cloud"/></svg>
+          <svg class="mini-cloud c3" aria-hidden="true" viewBox="0 0 120 50" style="left:0;top:470px;width:110px;height:46px"><use href="#cloud"/></svg>
+          <svg class="twinkle" aria-hidden="true" viewBox="-7 -7 14 14" style="left:60px;top:200px;width:14px;height:14px"><use href="#sparkle"/></svg>
+          <svg class="twinkle t2" aria-hidden="true" viewBox="-7 -7 14 14" style="left:340px;top:250px;width:18px;height:18px"><use href="#sparkle"/></svg>
+          <svg class="twinkle t3" aria-hidden="true" viewBox="-7 -7 14 14" style="left:90px;top:420px;width:12px;height:12px"><use href="#sparkle"/></svg>
+          <svg class="twinkle" aria-hidden="true" viewBox="-7 -7 14 14" style="left:320px;top:440px;width:14px;height:14px"><use href="#sparkle"/></svg>
+
+          <div class="sky-title">¡Ya viene en camino!</div>
+          <div class="sky-sub">Una conejita con alas viaja en su nube directo a nuestros brazos.</div>
+
+          <svg class="flyer" role="img" aria-label="Conejita con alas y vestido sentada en una nube" viewBox="0 0 260 262">
+            <g class="wing-l">
+              <path d="M92 165C60 120 18 118 22 150C10 160 26 180 50 172C46 190 72 192 92 178Z" fill="#FFFFFF" stroke="#F0C3CF" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M84 162C66 142 44 138 36 148M80 170C64 160 48 160 40 166" fill="none" stroke="#F4D3DC" stroke-width="2" stroke-linecap="round"/>
+            </g>
+            <g class="wing-r">
+              <path d="M168 165C200 120 242 118 238 150C250 160 234 180 210 172C214 190 188 192 168 178Z" fill="#FFFFFF" stroke="#F0C3CF" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M176 162C194 142 216 138 224 148M180 170C196 160 212 160 220 166" fill="none" stroke="#F4D3DC" stroke-width="2" stroke-linecap="round"/>
+            </g>
+            <use href="#bunny" x="30" y="6" width="200" height="240"/>
+            <g fill="#FFFFFF">
+              <ellipse cx="130" cy="252" rx="98" ry="8" fill="#F4C9D5" opacity=".6"/>
+              <circle cx="66" cy="224" r="26"/><circle cx="102" cy="212" r="32"/><circle cx="150" cy="214" r="34"/>
+              <circle cx="192" cy="226" r="24"/><circle cx="44" cy="236" r="16"/><circle cx="216" cy="238" r="16"/>
+              <rect x="44" y="226" width="172" height="24" rx="12"/>
+            </g>
+            <path d="M58 236C80 244 110 246 130 244" fill="none" stroke="#F6DCE3" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+
+          <button class="nav-left" type="button" data-action="back">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            Volver
+          </button>
+          <button class="nav-right mobile-only" type="button" data-action="toR">
+            Ver invitación
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </section>
+      </div>
+
+      <!-- ===== TAPA: frente = portada, reverso = conejita ===== -->
+      <div class="cover">
+        <!-- PORTADA -->
+        <section class="face front front-cover" aria-label="Portada">
+          <div class="frame"></div>
+          <svg aria-hidden="true" viewBox="0 0 200 140" style="width:170px;height:119px;margin-top:4px">
+            <path d="M96 60 L66 130 L81 122 L88 137 L106 62Z" fill="#D7728E"/>
+            <path d="M104 60 L134 130 L119 122 L112 137 L94 62Z" fill="#CC6584"/>
+            <path d="M100 54 C70 8 14 6 20 40 C24 68 72 68 100 60Z" fill="#E58FA6"/>
+            <path d="M100 54 C130 8 186 6 180 40 C176 68 128 68 100 60Z" fill="#E08AA2"/>
+            <path d="M92 54 C70 26 40 24 38 40 C37 52 64 58 92 58Z" fill="#F2B3C3" opacity=".7"/>
+            <path d="M108 54 C130 26 160 24 162 40 C163 52 136 58 108 58Z" fill="#F2B3C3" opacity=".7"/>
+            <ellipse cx="100" cy="57" rx="14" ry="12" fill="#C2557A"/>
+            <ellipse cx="97" cy="54" rx="5" ry="3.5" fill="#E58FA6" opacity=".8"/>
+          </svg>
+          <h1>Baby Shower</h1>
+          <div class="subtitle">Una dulce invitación</div>
+          <div class="divider"><span></span><svg aria-hidden="true" viewBox="0 0 40 32"><use href="#butterfly"/></svg><span></span></div>
+          <div class="people">
+            <div><div class="label">Para</div><div class="name" id="para">Familia</div></div>
+            <div><div class="label">De</div><div class="name sm">Angela y Ronald</div></div>
+          </div>
+          <button class="open-btn" type="button" data-action="open">Abrir invitación</button>
+        </section>
+
+        <!-- PÁGINA 1 (izquierda): conejita -->
+        <section class="face back page-left bunny-page" aria-label="Gabriela">
+          <div class="frame"></div>
+          <div class="blob" aria-hidden="true"></div>
+          <svg class="deco flutter" aria-hidden="true" viewBox="0 0 40 32" style="left:58px;top:70px;width:34px;height:27px"><use href="#butterfly"/></svg>
+          <svg class="deco flutter f2" aria-hidden="true" viewBox="0 0 40 32" style="left:318px;top:120px;width:26px;height:21px;fill:#F3BFCC"><use href="#butterfly"/></svg>
+          <svg class="twinkle" aria-hidden="true" viewBox="-7 -7 14 14" style="left:330px;top:330px;width:14px;height:14px"><use href="#sparkle"/></svg>
+          <svg class="twinkle t2" aria-hidden="true" viewBox="-7 -7 14 14" style="left:74px;top:300px;width:12px;height:12px"><use href="#sparkle"/></svg>
+
+          <svg class="bunny-big" role="img" aria-label="Conejita con vestido rosado" viewBox="0 0 200 240"><use href="#bunny"/></svg>
+          <div class="baby-name">Gabriela</div>
+          <div class="baby-sub">Muy pronto en nuestros brazos</div>
+
+          <button class="nav-left" type="button" data-action="close">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            Cerrar
+          </button>
+          <button class="nav-right mobile-only" type="button" data-action="toR">
+            Leer poema
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Ventana inicial obligatoria: apellido (no tiene botón de cerrar) -->
+  <div class="modal-backdrop welcome" id="welcome">
+    <form class="modal" id="welcome-form" role="dialog" aria-modal="true" aria-labelledby="welcome-title" novalidate>
+      <svg aria-hidden="true" viewBox="0 0 200 240" style="width: 70px; height: 84px"><use href="#bunny"></use></svg>
+      <h2 id="welcome-title">Ingresa tu apellido</h2>
+      <p class="modal-sub">Así preparamos tu invitación personalizada</p>
+      <label class="sr-only" for="apellido">Apellido</label>
+      <input class="field" id="apellido" type="text" autocomplete="family-name" autocapitalize="words" maxlength="40" placeholder="Ej: Rodríguez">
+      <p class="field-error" id="apellido-error" hidden>Escribe tu apellido para continuar</p>
+      <button class="primary-btn" type="submit">Ver mi invitación</button>
+    </form>
+  </div>
+
+  <!-- Ventana para confirmar asistencia -->
+  <div class="modal-backdrop" id="rsvp" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rsvp-title">
+      <button class="modal-x" type="button" aria-label="Cerrar" data-action="closeModal">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <svg aria-hidden="true" viewBox="0 0 40 32" style="width: 30px; height: 24px; fill: #EFA9BB"><use href="#butterfly"></use></svg>
+      <h2 id="rsvp-title">¿Quién te envió la invitación?</h2>
+      <p class="modal-sub">Confírmale por WhatsApp</p>
+      <div class="who">
+        <a class="who-btn boy" id="wa-ronald" href="https://wa.me/573123694220?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Gabriela." target="_blank" rel="noopener" data-action="closeModal">
+          <svg aria-hidden="true" viewBox="0 0 200 240"><use href="#bunny-boy"></use></svg>
+          <span>Ronald</span>
+        </a>
+        <a class="who-btn girl" id="wa-angela" href="https://wa.me/573215038027?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Gabriela." target="_blank" rel="noopener" data-action="closeModal">
+          <svg aria-hidden="true" viewBox="0 0 200 240"><use href="#bunny"></use></svg>
+          <span>Angela</span>
+        </a>
+      </div>
+      </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var book = document.getElementById('book');
+  // spread: 0 = cerrado, 1 = conejita + poema, 2 = conejita volando + invitación
+  // side: en celular se ve una página a la vez ('L' izquierda, 'R' derecha)
+  var spread = 0, side = 'L';
+
+  function render() {
+    book.classList.toggle('is-open', spread >= 1);
+    book.classList.toggle('s2', spread === 2);
+    book.classList.toggle('show-right', spread >= 1 && side === 'R');
+  }
+
+  var actions = {
+    open:  function () { spread = 1; side = 'L'; },
+    close: function () { spread = 0; side = 'L'; },
+    turn:  function () { spread = 2; side = 'L'; },
+    back:  function () { spread = 1; side = 'R'; },
+    toR:   function () { side = 'R'; },
+    toL:   function () { side = 'L'; },
+    rsvp:  function () { modal.hidden = false; },
+    closeModal: function () { modal.hidden = true; }
+  };
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn || !actions[btn.getAttribute('data-action')]) return;
+    actions[btn.getAttribute('data-action')]();
+    render();
+  });
+
+  // Confirmación por WhatsApp (57 = Colombia)
+  function setWhatsApp(familia) {
+    var msg = '¡Hola! Soy de la ' + familia.replace(/^Familia/, 'familia') + ' y confirmo mi asistencia al Baby Shower de Gabriela.';
+    var texto = '?text=' + encodeURIComponent(msg);
+    document.getElementById('wa-ronald').href = 'https://wa.me/573123694220' + texto;  // Ronald
+    document.getElementById('wa-angela').href = 'https://wa.me/573215038027' + texto;  // Angela
+  }
+
+  // Ventana inicial obligatoria: "Ingresa tu apellido"
+  var welcome = document.getElementById('welcome');
+  var form = document.getElementById('welcome-form');
+  var input = document.getElementById('apellido');
+  var error = document.getElementById('apellido-error');
+  var CLAVE = 'babyshower-gabriela-apellido';  // dónde se guarda el apellido en este dispositivo
+
+  function aplicarApellido(ap) {
+    var familia = 'Familia ' + ap;
+    document.getElementById('para').textContent = familia;
+    setWhatsApp(familia);
+    welcome.hidden = true;
+  }
+
+  // Si este dispositivo ya ingresó su apellido antes, no se vuelve a pedir
+  var guardado = null;
+  try { guardado = localStorage.getItem(CLAVE); } catch (err) {}
+  if (guardado) {
+    aplicarApellido(guardado);
+  } else {
+    setTimeout(function () { input.focus(); }, 300);
+  }
+
+  input.addEventListener('input', function () { input.classList.remove('invalid'); error.hidden = true; });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ap = input.value.trim().replace(/\s+/g, ' ').replace(/^familia\s+/i, '');
+    if (!ap) {
+      input.classList.remove('invalid'); void input.offsetWidth; input.classList.add('invalid');
+      error.hidden = false; input.focus();
+      return;
+    }
+    ap = ap.split(' ').map(function (w) { return w.charAt(0).toLocaleUpperCase('es') + w.slice(1); }).join(' ');
+    try { localStorage.setItem(CLAVE, ap); } catch (err) {}
+    aplicarApellido(ap);
+  });
+
+  // Ventana "¿Quién te envió la invitación?"
+  var modal = document.getElementById('rsvp');
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.hidden = true; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') modal.hidden = true; });
+})();
+</script>
+</body>
+</html>
