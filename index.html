@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="only light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFF6F8">
 <title>Baby Shower de Gabriela</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
   --line:#F1C6D2;
 }
 *{box-sizing:border-box}
-html{margin:0;background-color:#FFF6F8;color-scheme:only light}
+html{margin:0;background-color:#FFF6F8;color-scheme:light dark}
 body{
   margin:0;min-height:100vh;
   font-family:'Quicksand',sans-serif;color:var(--brown);
@@ -200,6 +200,10 @@ button.pill{background:transparent;font-family:inherit;cursor:pointer}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+/* Navegadores con modo oscuro forzado (Samsung Internet): la página declara su propio estilo oscuro, que es el mismo claro */
+@media (prefers-color-scheme:dark){html,body{background-color:#FFF6F8;color:#5A3E36}.field{background:#FFFFFF;color:#5A3E36}.modal{background:#FFFBFC}}
+.samsung-tip{margin:14px 0 0;padding:10px 12px;border-radius:12px;background:#FBE7EC;font-size:12.5px;line-height:1.45;color:#6B4C44}
+.samsung-tip[hidden]{display:none}
 @media (prefers-reduced-motion:reduce){
   .book,.cover,.leaf,.reveal{transition:none}
   .open-btn,.flutter,.bunny-big,.flyer,.wing-l,.wing-r,.mini-cloud,.twinkle{animation:none}
@@ -448,6 +452,7 @@ vives desde hoy en nuestro corazón.</div>
       <label class="sr-only" for="apellido">Apellido</label>
       <input class="field" id="apellido" type="text" autocomplete="family-name" autocapitalize="words" maxlength="40" placeholder="Ej: Rodríguez">
       <p class="field-error" id="apellido-error" hidden>Escribe tu apellido para continuar</p>
+      <p class="samsung-tip" id="samsung-tip" hidden>¿Ves la invitación oscura? En Samsung Internet toca el menú ☰ y desactiva <b>Modo oscuro</b> para verla con sus colores.</p>
       <button class="primary-btn" type="submit">Ver mi invitación</button>
     </form>
   </div>
@@ -537,6 +542,8 @@ vives desde hoy en nuestro corazón.</div>
     setTimeout(function () { input.focus(); }, 300);
   }
 
+  // Aviso solo para Samsung Internet en modo oscuro
+  try { if (/SamsungBrowser/i.test(navigator.userAgent) && matchMedia('(prefers-color-scheme: dark)').matches) document.getElementById('samsung-tip').hidden = false; } catch (err) {}
   input.addEventListener('input', function () { input.classList.remove('invalid'); error.hidden = true; });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
