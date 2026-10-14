@@ -410,7 +410,7 @@ vives desde hoy en nuestro corazón.</div>
           <div class="subtitle">Una dulce invitación</div>
           <div class="divider"><span></span><svg aria-hidden="true" viewBox="0 0 40 32"><use href="#butterfly"/></svg><span></span></div>
           <div class="people">
-            <div><div class="label">Para</div><div class="name" id="para">Familia</div></div>
+            <div><div class="label">Para</div><div class="name" id="para"></div></div>
             <div><div class="label">De</div><div class="name sm">Angela y Ronald</div></div>
           </div>
           <button class="open-btn" type="button" data-action="open">Abrir invitación</button>
@@ -443,15 +443,15 @@ vives desde hoy en nuestro corazón.</div>
     </div>
   </div>
 
-  <!-- Ventana inicial obligatoria: apellido (no tiene botón de cerrar) -->
+  <!-- Ventana inicial obligatoria: nombre (no tiene botón de cerrar) -->
   <div class="modal-backdrop welcome" id="welcome">
     <form class="modal" id="welcome-form" role="dialog" aria-modal="true" aria-labelledby="welcome-title" novalidate>
       <svg aria-hidden="true" viewBox="0 0 200 240" style="width: 70px; height: 84px"><use href="#bunny"></use></svg>
-      <h2 id="welcome-title">Ingresa tu apellido</h2>
+      <h2 id="welcome-title">Ingresa tu nombre</h2>
       <p class="modal-sub">Así preparamos tu invitación personalizada</p>
-      <label class="sr-only" for="apellido">Apellido</label>
-      <input class="field" id="apellido" type="text" autocomplete="family-name" autocapitalize="words" maxlength="40" placeholder="Ej: Rodríguez">
-      <p class="field-error" id="apellido-error" hidden>Escribe tu apellido para continuar</p>
+      <label class="sr-only" for="apellido">Nombre</label>
+      <input class="field" id="apellido" type="text" autocomplete="name" autocapitalize="words" maxlength="40" placeholder="Ej: María">
+      <p class="field-error" id="apellido-error" hidden>Escribe tu nombre para continuar</p>
       <p class="samsung-tip" id="samsung-tip" hidden>¿Ves la invitación oscura? En Samsung Internet toca el menú ☰ y desactiva <b>Modo oscuro</b> para verla con sus colores.</p>
       <button class="primary-btn" type="submit">Ver mi invitación</button>
     </form>
@@ -512,28 +512,27 @@ vives desde hoy en nuestro corazón.</div>
   });
 
   // Confirmación por WhatsApp (57 = Colombia)
-  function setWhatsApp(familia) {
-    var msg = '¡Hola! Soy de la ' + familia.replace(/^Familia/, 'familia') + ' y confirmo mi asistencia al Baby Shower de Gabriela.';
+  function setWhatsApp(nombre) {
+    var msg = '¡Hola! Soy ' + nombre + ' y confirmo mi asistencia al Baby Shower de Gabriela.';
     var texto = '?text=' + encodeURIComponent(msg);
     document.getElementById('wa-ronald').href = 'https://wa.me/573123694220' + texto;  // Ronald
     document.getElementById('wa-angela').href = 'https://wa.me/573215038027' + texto;  // Angela
   }
 
-  // Ventana inicial obligatoria: "Ingresa tu apellido"
+  // Ventana inicial obligatoria: "Ingresa tu nombre"
   var welcome = document.getElementById('welcome');
   var form = document.getElementById('welcome-form');
   var input = document.getElementById('apellido');
   var error = document.getElementById('apellido-error');
-  var CLAVE = 'babyshower-gabriela-apellido';  // dónde se guarda el apellido en este dispositivo
+  var CLAVE = 'babyshower-gabriela-nombre';  // dónde se guarda el nombre en este dispositivo
 
   function aplicarApellido(ap) {
-    var familia = 'Familia ' + ap;
-    document.getElementById('para').textContent = familia;
-    setWhatsApp(familia);
+    document.getElementById('para').textContent = ap;
+    setWhatsApp(ap);
     welcome.hidden = true;
   }
 
-  // Si este dispositivo ya ingresó su apellido antes, no se vuelve a pedir
+  // Si este dispositivo ya ingresó su nombre antes, no se vuelve a pedir
   var guardado = null;
   try { guardado = localStorage.getItem(CLAVE); } catch (err) {}
   if (guardado) {
@@ -547,7 +546,7 @@ vives desde hoy en nuestro corazón.</div>
   input.addEventListener('input', function () { input.classList.remove('invalid'); error.hidden = true; });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var ap = input.value.trim().replace(/\s+/g, ' ').replace(/^familia\s+/i, '');
+    var ap = input.value.trim().replace(/\s+/g, ' ');
     if (!ap) {
       input.classList.remove('invalid'); void input.offsetWidth; input.classList.add('invalid');
       error.hidden = false; input.focus();
